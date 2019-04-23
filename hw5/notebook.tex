@@ -1,0 +1,576 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{fds\_hw5}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} AFDS Homework 5 \PYZhy{}\PYZhy{}\PYZhy{} Daniel Chirita (dc3316) \PYZhy{}\PYZhy{}\PYZhy{} April 5, 2019}
+         
+         \PY{c+c1}{\PYZsh{} Problem 3 }
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{} packages: }
+         \PY{k+kn}{import} \PY{n+nn}{string}\PY{o}{,} \PY{n+nn}{random}
+         \PY{k+kn}{from} \PY{n+nn}{tqdm} \PY{k}{import} \PY{n}{tnrange}
+         \PY{k+kn}{from} \PY{n+nn}{tqdm} \PY{k}{import} \PY{n}{tqdm\PYZus{}notebook} \PY{k}{as} \PY{n}{tqdm}
+         \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k}{import} \PY{n}{deque}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{} helper functions:}
+         \PY{k}{def} \PY{n+nf}{wordStream} \PY{p}{(}\PY{n}{fileName}\PY{p}{,} \PY{n}{sample\PYZus{}size}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{wordcount} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{with} \PY{n+nb}{open} \PY{p}{(}\PY{n}{fileName}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{infile}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{infile}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{line}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{z} \PY{o}{=} \PY{l+m+mi}{0}
+                         \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{w}\PY{o}{.}\PY{n}{strip} \PY{p}{(}\PY{n}{string}\PY{o}{.}\PY{n}{punctuation}\PY{p}{)}\PY{p}{:}
+                             \PY{n}{z} \PY{o}{=} \PY{p}{(}\PY{n}{z}\PY{o}{\PYZlt{}\PYZlt{}}\PY{l+m+mi}{8}\PY{p}{)} \PY{o}{|} \PY{n+nb}{ord}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                         \PY{k}{yield} \PY{n}{z}
+                         \PY{n}{wordcount} \PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+                     \PY{n}{sample\PYZus{}size} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+                     \PY{k}{if} \PY{n}{sample\PYZus{}size} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:} \PY{k}{break}
+         \PY{c+c1}{\PYZsh{}         print(\PYZsq{}total word count:\PYZsq{}, wordcount) \PYZsh{} 1095695}
+         \PY{c+c1}{\PYZsh{} print(\PYZsq{}distinct words in big.txt:\PYZsq{}, countDistinct(wordStream(\PYZsq{}big.txt\PYZsq{}))) \PYZsh{} 38369}
+         
+         \PY{k}{def} \PY{n+nf}{shingleStream} \PY{p}{(}\PY{n}{fileName}\PY{p}{,} \PY{n}{shingle\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{9}\PY{p}{,} \PY{n}{sample\PYZus{}size}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{shinglecount} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{with} \PY{n+nb}{open} \PY{p}{(}\PY{n}{fileName}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{infile}\PY{p}{:}
+                 \PY{n}{shingle} \PY{o}{=} \PY{n}{deque}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{shingle\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{shingle}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{infile}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{z} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{shingle}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{z} \PY{o}{=} \PY{p}{(}\PY{n}{z}\PY{o}{\PYZlt{}\PYZlt{}}\PY{l+m+mi}{8}\PY{p}{)} \PY{o}{|} \PY{n+nb}{ord}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                 \PY{n}{shinglecount} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{n}{sample\PYZus{}size} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{k}{yield} \PY{n}{z}
+                 
+                 \PY{k}{while} \PY{k+kc}{True}\PY{p}{:}
+                     \PY{n}{newChar} \PY{o}{=} \PY{n}{infile}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                     \PY{k}{if} \PY{n}{newChar} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{continue}
+                     \PY{k}{if} \PY{n}{newChar} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{break}
+                     \PY{n}{shingle}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{newChar}\PY{p}{)}
+                     \PY{n}{shingle}\PY{o}{.}\PY{n}{popleft}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{shinglecount} \PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+                     \PY{n}{z} \PY{o}{=} \PY{l+m+mi}{0}
+                     \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{shingle}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{z} \PY{o}{=} \PY{p}{(}\PY{n}{z}\PY{o}{\PYZlt{}\PYZlt{}}\PY{l+m+mi}{8}\PY{p}{)} \PY{o}{|} \PY{n+nb}{ord}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                     \PY{k}{yield} \PY{n}{z}
+                     
+                     \PY{n}{sample\PYZus{}size} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+                     \PY{k}{if} \PY{n}{sample\PYZus{}size} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:} \PY{k}{break}
+         \PY{c+c1}{\PYZsh{}         print(\PYZsq{}total shingle count:\PYZsq{}, shinglecount) \PYZsh{} 6360200}
+         \PY{c+c1}{\PYZsh{} print(\PYZsq{}distinct 9\PYZhy{}shingles in big.txt:\PYZsq{}, countDistinct(shingleStream(\PYZsq{}big.txt\PYZsq{},9))) \PYZsh{} 2806810}
+                         
+         \PY{k}{def} \PY{n+nf}{countDistinct} \PY{p}{(}\PY{n}{stream}\PY{p}{)}\PY{p}{:}
+             \PY{n}{M} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+             \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{stream}\PY{p}{:} \PY{n}{M}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{return} \PY{n+nb}{len}\PY{p}{(}\PY{n}{M}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} distinct words in big.txt: 38369}
+             \PY{c+c1}{\PYZsh{} distinct 9\PYZhy{}shingles in big.txt: 2806810}
+             
+         \PY{k}{def} \PY{n+nf}{median} \PY{p}{(}\PY{n}{vals}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{vals}\PY{p}{)}\PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{vals}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}
+         
+         \PY{k}{def} \PY{n+nf}{mean} \PY{p}{(}\PY{n}{vals}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n+nb}{round}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{vals}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{vals}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{harmonic\PYZus{}mean} \PY{p}{(}\PY{n}{vals}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n+nb}{round}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{vals}\PY{p}{)}\PY{o}{/}\PY{n+nb}{sum}\PY{p}{(}\PY{p}{[}\PY{n}{i}\PY{o}{*}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{vals}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{sd} \PY{p}{(}\PY{n}{true\PYZus{}val}\PY{p}{,} \PY{n}{estimate}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n+nb}{round}\PY{p}{(}\PY{p}{(}\PY{n}{true\PYZus{}val} \PY{o}{\PYZhy{}} \PY{n}{estimate}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{/} \PY{n}{true\PYZus{}val}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{perc\PYZus{}error} \PY{p}{(}\PY{n}{true\PYZus{}val}\PY{p}{,} \PY{n}{estimate}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n+nb}{round}\PY{p}{(}\PY{l+m+mi}{100}\PY{o}{*}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{true\PYZus{}val} \PY{o}{\PYZhy{}} \PY{n}{estimate}\PY{p}{)}\PY{o}{/}\PY{n}{true\PYZus{}val}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{hyperLogLog} \PY{p}{(}\PY{n}{vals}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n+nb}{round}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{vals}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{/} \PY{n+nb}{sum}\PY{p}{(}\PY{p}{[}\PY{n}{i}\PY{o}{*}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{vals}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{task}{%
+\subsubsection{Task:}\label{task}}
+
+Write a function FM estimates which takes as input the stream and a
+number r denoting the required number of estimates and returns an array
+of independent estimates \([z_0 , z_1 , · · · , z_{r-1} ]\). There are
+several ways of combining the estimates to obtain a final estimate. Note
+that each \(z_i\) represents an estimate of \(2^{z_i}\) by the FM
+algorithm. Try the following ways of combining the estimates and state
+which seems to be the best:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Estimate & Expression of estimate in terms of \(z_i\)\tabularnewline
+\midrule
+\endhead
+Mean of the estimates &
+\((2^{z_0} + · · · + 2^{z_99} )/100\).\tabularnewline
+Median of the estimates &
+\(median\{2^{z_0}, · · · , 2^{z_{99}}\}\).\tabularnewline
+Harmonic mean of the estimates &
+\(100/(2^{-z_0} + · · · + 2^{-z_{99}})\).\tabularnewline
+HyperLogLog & \(10000/(2^{-z_0} + · · · + 2^{-z_{99}})\)\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} FM\PYZus{}estimates:}
+        
+        \PY{k}{def} \PY{n+nf}{FM\PYZus{}estimates}\PY{p}{(}\PY{n}{stream}\PY{p}{,} \PY{n}{r}\PY{p}{)}\PY{p}{:} 
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    r is the number of estimates to be made}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{p} \PY{o}{=} \PY{l+m+mi}{9576890767} \PY{c+c1}{\PYZsh{} large prime}
+            \PY{n}{m} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{32}
+            
+            \PY{c+c1}{\PYZsh{} generate a\PYZus{}i\PYZsq{}s and b\PYZus{}i\PYZsq{}s for r random hash fns}
+            \PY{n}{a} \PY{o}{=} \PY{p}{[}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{p}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{r}\PY{p}{)}\PY{p}{]}
+            \PY{n}{b} \PY{o}{=} \PY{p}{[}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{p}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{r}\PY{p}{)}\PY{p}{]}
+            \PY{n}{z} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{r}\PY{p}{)}\PY{p}{]}
+            
+            \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{tqdm}\PY{p}{(}\PY{n}{stream}\PY{p}{,}\PY{n}{total}\PY{o}{=}\PY{l+m+mi}{1095695}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{r}\PY{p}{)}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{} random hash of word}
+                    \PY{n}{h} \PY{o}{=} \PY{n+nb}{bin}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{n}{a}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{p}{(}\PY{n}{word} \PY{o}{\PYZpc{}} \PY{n}{p}\PY{p}{)} \PY{o}{+} \PY{n}{b}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{p}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{m}\PY{p}{)}
+                    \PY{k}{if} \PY{n}{h} \PY{o}{!=} \PY{n+nb}{bin}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{z}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{z}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n+nb}{str}\PY{p}{(}\PY{n}{h}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)} 
+            \PY{k}{return} \PY{n}{z}
+                    
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{stream} \PY{o}{=} \PY{n}{wordStream}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{big.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{estimates} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{z} \PY{k}{for} \PY{n}{z} \PY{o+ow}{in} \PY{n}{FM\PYZus{}estimates}\PY{p}{(}\PY{n}{stream}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{]} \PY{c+c1}{\PYZsh{} 148 sec}
+         \PY{n}{estimates} \PY{o}{=} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{estimates} \PY{k}{if} \PY{n}{i}\PY{o}{!=}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{estimates}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{estimates}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+HBox(children=(IntProgress(value=0, max=1095695), HTML(value='')))
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+[8192, 65536, 8192, 262144, 32768, 32768, 8192, 262144, 32768, 131072, 131072, 16384, 32768, 131072, 32768, 131072, 524288, 524288, 262144, 8192, 8192, 32768, 32768, 32768, 32768, 65536, 32768, 32768, 32768, 262144, 16384, 262144, 32768, 16384, 262144, 8192, 32768, 16384, 32768, 32768, 16384, 8192, 131072, 32768, 32768, 32768, 131072, 131072, 65536, 32768, 65536, 8192, 524288, 32768, 16384, 524288, 16384, 262144, 32768, 262144, 32768, 16384, 524288, 65536, 32768, 32768, 32768, 16384, 65536, 32768, 16384, 32768, 16384, 8192, 1048576, 32768, 16384, 16384, 32768, 8192, 32768, 32768, 8192, 65536, 1048576, 262144, 65536, 32768, 262144, 32768, 32768, 131072, 32768, 16384, 131072, 16384, 65536, 65536, 524288, 262144] 100
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean:          }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{mean(estimates)\PYZcb{}, error: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{perc\PYZus{}error(38369,mean(estimates))\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{median:        }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{median(estimates)\PYZcb{}, error: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{perc\PYZus{}error(38369,median(estimates))\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{harmonic mean: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{harmonic\PYZus{}mean(estimates)\PYZcb{}, error: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{perc\PYZus{}error(38369,harmonic\PYZus{}mean(estimates))\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hyperLogLog:   }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{hyperLogLog(estimates)\PYZcb{}, error: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{perc\PYZus{}error(38369,hyperLogLog(estimates))\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+mean:          114770, error: 199.12\%
+median:        32768, error: 14.6\%
+harmonic mean: 27522, error: 28.27\%
+hyperLogLog:   2752168, error: 7072.89\%
+
+    \end{Verbatim}
+
+    \hypertarget{results}{%
+\subsubsection{Results}\label{results}}
+
+Median seems to perform best.
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Method & Result & \% Error\tabularnewline
+\midrule
+\endhead
+Mean & 114770 & 199.12\%\tabularnewline
+Median & 32768 & 14.6\%\tabularnewline
+Harmonic mean & 27522 & 28.27\%\tabularnewline
+HyperLogLog & 2752168 & 7072.89\%\tabularnewline
+\bottomrule
+\end{longtable}
+
+True count of distinct words in big.txt: 38369
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{c+c1}{\PYZsh{} using stochastic averaging:}
+         
+         \PY{k}{def} \PY{n+nf}{stoch\PYZus{}FM\PYZus{}estimates}\PY{p}{(}\PY{n}{stream}\PY{p}{,} \PY{n}{r}\PY{p}{)}\PY{p}{:} 
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    2\PYZca{}r is the number of groups to be made}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{p} \PY{o}{=} \PY{l+m+mi}{9576890767} \PY{c+c1}{\PYZsh{} large prime}
+             \PY{n}{m} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{33}
+             
+             \PY{c+c1}{\PYZsh{} generate a and b for a random hash fn}
+             \PY{n}{a} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{p}\PY{p}{)}
+             \PY{n}{b} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{p}\PY{p}{)}
+             \PY{n}{z} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{r}\PY{p}{)}\PY{p}{]}
+             
+             \PY{k}{for} \PY{n}{shingle} \PY{o+ow}{in} \PY{n}{tqdm}\PY{p}{(}\PY{n}{stream}\PY{p}{,}\PY{n}{total}\PY{o}{=}\PY{l+m+mi}{6360201}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} random hash of shingle}
+                 \PY{n}{h} \PY{o}{=} \PY{n+nb}{bin}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{n}{a} \PY{o}{*} \PY{p}{(}\PY{n}{shingle} \PY{o}{\PYZpc{}} \PY{n}{p}\PY{p}{)} \PY{o}{+} \PY{n}{b}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{p}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{m}\PY{p}{)}
+                 \PY{n}{hstr} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{h}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{p}{]}
+                 \PY{n}{group} \PY{o}{=} \PY{n}{hstr}\PY{p}{[}\PY{p}{:}\PY{n}{r}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}         print(h,group)}
+                 \PY{n}{val} \PY{o}{=} \PY{n}{hstr}\PY{p}{[}\PY{n}{r}\PY{p}{:}\PY{p}{]}
+         
+                 \PY{k}{if} \PY{n+nb}{bin}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{val}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{bin}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{z}\PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{group}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{z}\PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{group}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{n}{val}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)} 
+             \PY{k}{return} \PY{n}{z}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{stream} \PY{o}{=} \PY{n}{shingleStream}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{big.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} I kept seeing 0\PYZsq{}s for the first 32 estimates, checked the hash values and the first bit seems to invariably be 1. Effectively, an r value of 6 results in 32 estimates instead of 64. So I increased m to be 2**33 and r to 7.}
+         \PY{n}{estimates} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{stoch\PYZus{}FM\PYZus{}estimates}\PY{p}{(}\PY{n}{stream}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} 34 sec}
+         \PY{n}{estimates} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{z} \PY{k}{for} \PY{n}{z} \PY{o+ow}{in} \PY{n}{estimates}\PY{p}{]}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+HBox(children=(IntProgress(value=0, max=6360201), HTML(value='')))
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{estimates}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{estimates}\PY{p}{)}\PY{p}{)}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{Out: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 131072, 16384, 1048576, 16384, 65536, 16384, 16384, 65536, 262144, 32768, 16384, 8192, 32768, 32768, 32768, 65536, 131072, 65536, 32768, 32768, 32768, 131072, 131072, 65536, 16384, 65536, 32768, 32768, 131072, 524288, 131072, 32768, 524288, 1048576, 16384, 65536, 65536, 16384, 65536, 16384, 32768, 131072, 32768, 65536, 32768, 32768, 16384, 16384, 32768, 4194304, 16384, 32768, 131072, 524288, 65536, 32768, 16384, 16384, 32768, 32768, 32768, 65536, 16384, 16384] 128}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{n}{estimates} \PY{o}{=} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{estimates} \PY{k}{if} \PY{n}{i}\PY{o}{!=}\PY{l+m+mi}{1}\PY{p}{]} \PY{c+c1}{\PYZsh{} first bit is always 1, so only second half of estimates is \PYZgt{} 1 }
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{estimates}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{estimates}\PY{p}{)}\PY{p}{)}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{Out: [131072, 16384, 1048576, 16384, 65536, 16384, 16384, 65536, 262144, 32768, 16384, 8192, 32768, 32768, 32768, 65536, 131072, 65536, 32768, 32768, 32768, 131072, 131072, 65536, 16384, 65536, 32768, 32768, 131072, 524288, 131072, 32768, 524288, 1048576, 16384, 65536, 65536, 16384, 65536, 16384, 32768, 131072, 32768, 65536, 32768, 32768, 16384, 16384, 32768, 4194304, 16384, 32768, 131072, 524288, 65536, 32768, 16384, 16384, 32768, 32768, 32768, 65536, 16384, 16384] 64}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 131072, 16384, 1048576, 16384, 65536, 16384, 16384, 65536, 262144, 32768, 16384, 8192, 32768, 32768, 32768, 65536, 131072, 65536, 32768, 32768, 32768, 131072, 131072, 65536, 16384, 65536, 32768, 32768, 131072, 524288, 131072, 32768, 524288, 1048576, 16384, 65536, 65536, 16384, 65536, 16384, 32768, 131072, 32768, 65536, 32768, 32768, 16384, 16384, 32768, 4194304, 16384, 32768, 131072, 524288, 65536, 32768, 16384, 16384, 32768, 32768, 32768, 65536, 16384, 16384] 128
+[131072, 16384, 1048576, 16384, 65536, 16384, 16384, 65536, 262144, 32768, 16384, 8192, 32768, 32768, 32768, 65536, 131072, 65536, 32768, 32768, 32768, 131072, 131072, 65536, 16384, 65536, 32768, 32768, 131072, 524288, 131072, 32768, 524288, 1048576, 16384, 65536, 65536, 16384, 65536, 16384, 32768, 131072, 32768, 65536, 32768, 32768, 16384, 16384, 32768, 4194304, 16384, 32768, 131072, 524288, 65536, 32768, 16384, 16384, 32768, 32768, 32768, 65536, 16384, 16384] 64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean:          }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{mean(estimates)\PYZcb{}, error: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{perc\PYZus{}error(2806810,mean(estimates))\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{median:        }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{median(estimates)\PYZcb{}, error: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{perc\PYZus{}error(2806810,median(estimates))\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{harmonic mean: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{harmonic\PYZus{}mean(estimates)\PYZcb{}, error: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{perc\PYZus{}error(2806810,harmonic\PYZus{}mean(estimates))\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hyperLogLog:   }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{hyperLogLog(estimates)\PYZcb{}, error: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{perc\PYZus{}error(2806810,hyperLogLog(estimates))\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+mean:          170112, error: 93.94\%
+median:        32768, error: 98.83\%
+harmonic mean: 32573, error: 98.84\%
+hyperLogLog:   2084683, error: 25.73\%
+
+    \end{Verbatim}
+
+    \hypertarget{results}{%
+\subsubsection{Results}\label{results}}
+
+HyperLogLog outperforms other methods of estimate combination:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Method & Result & \% Error\tabularnewline
+\midrule
+\endhead
+Mean & 170112 & 93.94\%\tabularnewline
+Median & 32768 & 98.83\%\tabularnewline
+Harmonic Mean & 32573 & 98.84\%\tabularnewline
+hyperLogLog & 2084683 & 25.73\%\tabularnewline
+\bottomrule
+\end{longtable}
+
+True count of distinct 9-shingles in big.txt is 2806810.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
